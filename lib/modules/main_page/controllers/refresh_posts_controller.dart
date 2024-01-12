@@ -1,4 +1,4 @@
-import 'base_command.dart';
+import 'base_home_controller.dart';
 
 class RefreshPostsCommand extends BaseCommand {
 

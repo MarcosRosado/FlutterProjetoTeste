@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../commands/refresh_posts_command.dart';
-import '../models/app_model.dart';
-import '../models/user_model.dart';
+import '../controllers/refresh_posts_controller.dart';
+import '../../authentication/models/auth_model.dart';
+import '../models/user_posts_model.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,36 +19,37 @@ class _HomePageState extends State<HomePage> {
     // Disable the RefreshBtn while the Command is running
     setState(() => _isLoading = true);
     // Run command
-    if(context.read<AppModel>().currentUser == null) {
+    if(context.read<AuthModel>().currentUser == null) {
       setState(() => _isLoading = false);
       return;
     }
     else{
-      await RefreshPostsCommand().exec(context.read<AppModel>().currentUser!);
+      await RefreshPostsCommand().exec(context.read<AuthModel>().currentUser!);
     }
     // Re-enable refresh btn when command is done
     setState(() => _isLoading = false);
   }
 
-  void _handleResetUserPressed() async {
+  void _handleResetUserPressed() {
     setState(() => _isLoading = true);
-    context.read<AppModel>().currentUser = null;
+    context.read<AuthModel>().currentUser = null;
+    context.go('/authentication');
     setState(() => _isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
     // Bind to UserModel.userPosts
-    var userPosts = context.select<UserModel, List<String>>((value) => value.userPosts);
+    var userPosts = context.select<UserPostsModel, List<String>>((value) => value.userPosts);
     // Disable btn by removing listener when we're loading.
     void Function()? btnHandler = _isLoading ? null : _handleRefreshPressed;
     void Function()? btnHandlerResetUser = _isLoading ? null : _handleResetUserPressed;
-    // Render list of widgets
-    var listWidgets = userPosts.map((post) => Text(post)).toList();
+    // Render list of post widgets
+    var listPosts = userPosts.map((post) => Text(post)).toList();
     return Scaffold(
       body: Column(
         children: [
-          Flexible(child: ListView(children: listWidgets)),
+          Flexible(child: ListView(children: listPosts)),
           FilledButton(onPressed: btnHandler, child: Text("REFRESH")),
           FilledButton(onPressed: btnHandlerResetUser, child: Text("RESET_USER")),
         ],

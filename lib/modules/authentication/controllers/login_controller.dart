@@ -1,5 +1,5 @@
-import 'base_command.dart';
-import 'refresh_posts_command.dart';
+import '../../main_page/controllers/refresh_posts_controller.dart';
+import 'base_login_controller.dart';
 
 class LoginCommand extends BaseCommand {
 

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class AppModel extends ChangeNotifier {
+class AuthModel extends ChangeNotifier {
 
   String? _currentUser;
   String? get currentUser => _currentUser;

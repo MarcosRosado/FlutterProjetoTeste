@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../commands/login_command.dart';
+import '../controllers/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,7 +15,11 @@ class _LoginPageState extends State<LoginPage> {
   void _handleLoginPressed() async {
     setState(() => _isLoading = true);
     bool success = await LoginCommand().run("anotheruser", "somepass");
-    if (!success)  setState(() => _isLoading = false);
+    if (!success) {
+      setState(() => _isLoading = false);
+    } else {
+      context.go('/home');
+    }
   }
 
   @override
