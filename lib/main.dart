@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'commands/base_command.dart' as Commands;
@@ -24,7 +26,18 @@ class MyApp extends StatelessWidget {
       child: Builder(builder: (context) {
         // Save a context our Commands can use to access provided Models and Services
         Commands.init(context);
-        return const MaterialApp(home: AppScaffold());
+        return MaterialApp(
+          title: 'Provider Demo',
+            theme: ThemeData(
+              useMaterial3: true,
+              fontFamily: GoogleFonts.montserrat().fontFamily,
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.teal,
+                brightness: Brightness.light,
+              ),
+            ),
+            home: const AppScaffold()
+        );
       }),
     );
   }
@@ -38,8 +51,15 @@ class AppScaffold extends StatelessWidget {
     // Bind to AppModel.currentUser
     String? currentUser = context.select<AppModel, String?>((value) => value.currentUser);
 
+    if (kDebugMode) {
+      print(currentUser);
+    }
+
     // Return the current view, based on the currentUser value:
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Provider Demo"),
+      ),
       body: currentUser != null ? HomePage() : LoginPage(),
     );
   }

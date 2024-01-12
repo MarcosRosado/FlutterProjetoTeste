@@ -22,25 +22,33 @@ class _HomePageState extends State<HomePage> {
       return;
     }
     else{
-      await RefreshPostsCommand().run(context.read<AppModel>().currentUser!);
+      await RefreshPostsCommand().exec(context.read<AppModel>().currentUser!);
     }
     // Re-enable refresh btn when command is done
+    setState(() => _isLoading = false);
+  }
+
+  void _handleResetUserPressed() async {
+    setState(() => _isLoading = true);
+    context.read<AppModel>().currentUser = null;
     setState(() => _isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
     // Bind to UserModel.userPosts
-    var users = context.select<UserModel, List<String>>((value) => value.userPosts);
+    var userPosts = context.select<UserModel, List<String>>((value) => value.userPosts);
     // Disable btn by removing listener when we're loading.
     void Function()? btnHandler = _isLoading ? null : _handleRefreshPressed;
+    void Function()? btnHandlerResetUser = _isLoading ? null : _handleResetUserPressed;
     // Render list of widgets
-    var listWidgets = users.map((post) => Text(post)).toList();
+    var listWidgets = userPosts.map((post) => Text(post)).toList();
     return Scaffold(
       body: Column(
         children: [
           Flexible(child: ListView(children: listWidgets)),
           FilledButton(onPressed: btnHandler, child: Text("REFRESH")),
+          FilledButton(onPressed: btnHandlerResetUser, child: Text("RESET_USER")),
         ],
       ),
     );

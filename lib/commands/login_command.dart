@@ -9,7 +9,7 @@ class LoginCommand extends BaseCommand {
 
     // Run a 2nd command if service call was successful
     if (loginSuccess) {
-      await RefreshPostsCommand().run(user);
+      await RefreshPostsCommand().exec(user);
     }
     // Update appModel with current user. Any views bound to this will rebuild
     appModel.currentUser = (loginSuccess? user : null)!;
