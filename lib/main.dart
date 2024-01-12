@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/theme/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -27,15 +28,8 @@ class MyApp extends StatelessWidget {
         // Save a context our Commands can use to access provided Models and Services
         Commands.init(context);
         return MaterialApp(
-          title: 'Provider Demo',
-            theme: ThemeData(
-              useMaterial3: true,
-              fontFamily: GoogleFonts.montserrat().fontFamily,
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.teal,
-                brightness: Brightness.light,
-              ),
-            ),
+          title: 'Test Provider',
+            theme: defaultTheme,
             home: const AppScaffold()
         );
       }),
