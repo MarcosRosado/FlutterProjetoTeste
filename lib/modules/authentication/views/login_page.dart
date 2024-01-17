@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
-import '../controllers/login_controller.dart';
+import '../../main_page/view_models/user_posts_view_model.dart';
+import '../view_models/auth_view_model.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,10 +17,11 @@ class _LoginPageState extends State<LoginPage> {
 
   void _handleLoginPressed() async {
     setState(() => _isLoading = true);
-    bool success = await LoginCommand().run("anotheruser", "somepass");
+    bool success = await context.read<AuthViewModel>().login("anotheruser", "somepass");
     if (!success) {
       setState(() => _isLoading = false);
     } else {
+      context.read<UserPostsViewModel>().getPosts(context.read<AuthViewModel>().currentUser!);
       context.go('/home');
     }
   }

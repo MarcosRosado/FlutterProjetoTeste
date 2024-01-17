@@ -6,4 +6,5 @@ class PostService {
     await Future.delayed(Duration(milliseconds: 500));
     return List.generate(50, (index) => "$user Item ${Random().nextInt(999)}}");
   }
+
 }
