@@ -18,8 +18,8 @@ class HomePageState extends State<HomePage> {
 
 
   void _handleRefreshPressed() async {
-    final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
-    final postsViewModel = Provider.of<UserPostsViewModel>(context, listen: false);
+    final authViewModel = context.read<AuthViewModel>();
+    final postsViewModel = context.read<UserPostsViewModel>();
     // Disable the RefreshBtn while the Command is running
     setState(() => _isLoading = true);
     // Run command
@@ -35,7 +35,7 @@ class HomePageState extends State<HomePage> {
   }
 
   void _handleResetUserPressed() {
-    final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+    final authViewModel = context.read<AuthViewModel>();
 
     setState(() => _isLoading = true);
     authViewModel.currentUser = null;
@@ -45,7 +45,8 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final postsViewModel = Provider.of<UserPostsViewModel>(context);
+    // viewmodel initialization can be replaced by  Provider.of<UserPostsViewModel>(context);
+    final postsViewModel = context.watch<UserPostsViewModel>();
 
     // Read the userPosts property from the view model
     var userPosts = postsViewModel.userPosts;

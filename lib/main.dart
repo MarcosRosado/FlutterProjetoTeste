@@ -34,15 +34,17 @@ class MyApp extends StatelessWidget {
          *
          * NOTE: the operator ?? AuthViewModel(authService: authService) is a null check. If the viewModel is null, create a new one,
          * otherwise use the existing one and apply the update to it.
+         *
+         * another way of accessing the context is using the Provider.of<AuthService>(context, listen:false) method
          */
         ChangeNotifierProxyProvider<AuthService, AuthViewModel>(
-            create: (c) => AuthViewModel(authService: Provider.of<AuthService>(c, listen: false)),
+            create: (c) => AuthViewModel(authService: c.read<AuthService>()),
             update: (c, authService, authViewModel) => authViewModel ?? AuthViewModel(authService: authService)..update(authService: authService),
         ),
 
         //Main Page - Posts
         ChangeNotifierProxyProvider<PostService, UserPostsViewModel>(
-            create: (c) => UserPostsViewModel(postService: Provider.of<PostService>(c, listen: false)),
+            create: (c) => UserPostsViewModel(postService: c.read<PostService>()),
             update: (c, postService, userPostsViewModel) => userPostsViewModel ?? UserPostsViewModel(postService: postService)..update(postService: postService),
         ),
 

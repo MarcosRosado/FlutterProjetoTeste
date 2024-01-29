@@ -18,8 +18,8 @@ class LoginPageState extends State<LoginPage> {
   bool _isLoading = false;
 
   void _handleLoginPressed() async {
-    final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
-    final postsViewModel = Provider.of<UserPostsViewModel>(context, listen: false);
+    final authViewModel = context.read<AuthViewModel>();
+    final postsViewModel = context.read<UserPostsViewModel>();
 
     setState(() => _isLoading = true);
     bool success = await authViewModel.login("anotheruser", "somepass");
