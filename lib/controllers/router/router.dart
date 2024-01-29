@@ -8,6 +8,13 @@ import 'package:go_router/go_router.dart';
 final router = GoRouter(
   initialLocation: '/authentication',
   routes: [
+    /**
+     * GoRoute can have nested routes.
+     * this can be done by adding another GoRoute inside the routes optional property of the GoRoute.
+     * navigation can be done using the context.go() method. if a route is nested you can access it from the
+     * outside using context.go('/routeName/nestedRouteName')
+     * or go back within the nested route using context.go('../anotherNestedRouteName'), or using the full path.
+     */
     GoRoute(
       path: '/authentication',
       pageBuilder: (context, state) => buildPageWithoutTransition<void>(
