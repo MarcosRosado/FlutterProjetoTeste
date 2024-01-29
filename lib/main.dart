@@ -1,7 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/common/styles/theme.dart';
-import 'package:flutter_projects/controllers/router/router.dart';
+import 'package:flutter_projects/common/controllers/router/router.dart';
 import 'package:flutter_projects/modules/authentication/models/services/auth_service.dart';
 import 'package:flutter_projects/modules/main_page/models/services/posts_service.dart';
 import 'package:provider/provider.dart';

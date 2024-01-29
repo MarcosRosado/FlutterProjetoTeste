@@ -1,4 +1,3 @@
-import 'dart:math';
 
 class AuthService {
   Future<bool> login(String user, String pass) async {

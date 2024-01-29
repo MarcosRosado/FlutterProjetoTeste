@@ -63,8 +63,8 @@ class HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Flexible(child: ListView(children: listPosts)),
-          FilledButton(onPressed: btnHandler, child: Text("REFRESH")),
-          FilledButton(onPressed: btnHandlerResetUser, child: Text("RESET_USER")),
+          FilledButton(onPressed: btnHandler, child: const Text("REFRESH")),
+          FilledButton(onPressed: btnHandlerResetUser, child: const Text("RESET_USER")),
         ],
       ),
     );

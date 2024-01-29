@@ -1,6 +1,13 @@
 # flutter_projects
 
-A new Flutter project.
+A test project to learn flutter. This project is a simple example that uses a complete file structure.
+The project has a modules folder that contains specific filed for that module. 
+The modules folder contains a folder for each module, with a models, view_models and views folder.
+
+The common folder contains the common files for the project, like the theme and styles. It can also contain generic widgets that can be used in the project.
+Inside the common folder is also present the controllers folder, witch contains the controllers for the project. 
+The controllers are used to handle the logic of the project such as navigation and routing.
+
 
 ## Getting Started
 

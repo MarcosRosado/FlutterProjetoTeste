@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/controllers/router/router_animation.dart';
+import 'package:flutter_projects/common/controllers/router/router_animation.dart';
 import 'package:flutter_projects/modules/authentication/views/login_page.dart';
 import 'package:flutter_projects/modules/main_page/views/home_page.dart';
 import 'package:go_router/go_router.dart';
