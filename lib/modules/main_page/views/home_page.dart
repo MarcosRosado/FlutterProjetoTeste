@@ -7,40 +7,48 @@ import '../view_models/user_posts_view_model.dart';
 
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   bool _isLoading = false;
 
+
   void _handleRefreshPressed() async {
+    final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+    final postsViewModel = Provider.of<UserPostsViewModel>(context, listen: false);
     // Disable the RefreshBtn while the Command is running
     setState(() => _isLoading = true);
     // Run command
-    if(context.read<AuthViewModel>().currentUser == null) {
+    if(authViewModel.currentUser == null) {
       setState(() => _isLoading = false);
       return;
     }
     else{
-      await context.read<UserPostsViewModel>().getPosts(context.read<AuthViewModel>().currentUser!);
+      await postsViewModel.getPosts(authViewModel.currentUser!);
     }
     // Re-enable refresh btn when command is done
     setState(() => _isLoading = false);
   }
 
   void _handleResetUserPressed() {
+    final authViewModel = Provider.of<AuthViewModel>(context, listen: false);
+
     setState(() => _isLoading = true);
-    context.read<AuthViewModel>().currentUser = null;
+    authViewModel.currentUser = null;
     context.go('/authentication');
     setState(() => _isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
-    final userPostsViewModel = context.watch<UserPostsViewModel>();
+    final postsViewModel = Provider.of<UserPostsViewModel>(context);
+
     // Read the userPosts property from the view model
-    var userPosts = userPostsViewModel.userPosts;
+    var userPosts = postsViewModel.userPosts;
 
     // alternatively you can use the select method to bind to a specific property
     // var userPosts = context.select<UserPostsModel, List<String>>((value) => value.userPosts);

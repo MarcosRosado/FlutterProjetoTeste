@@ -14,8 +14,8 @@ final router = GoRouter(
         context: context,
         state: state,
         child: Scaffold(
-          appBar: AppBar(title: Text('Login Screen')),
-          body: LoginPage(),
+          appBar: AppBar(title: const Text('Login Screen')),
+          body: const LoginPage(),
         ),
       ),
     ),
@@ -25,8 +25,8 @@ final router = GoRouter(
         context: context,
         state: state,
         child: Scaffold(
-          appBar: AppBar(title: Text('Home Screen')),
-          body: HomePage(),
+          appBar: AppBar(title: const Text('Home Screen')),
+          body: const HomePage(),
         ),
       ),
     ),

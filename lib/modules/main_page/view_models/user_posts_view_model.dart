@@ -5,8 +5,16 @@ import 'package:flutter_projects/modules/main_page/models/services/posts_service
 
 class UserPostsViewModel extends ChangeNotifier {
 
-  PostService postService = PostService();
+  /// Viewmodel initialization and dependency injection
+  PostService postService;
+  UserPostsViewModel({required this.postService});
 
+  void update({required PostService postService}) {
+   this.postService = postService;
+  }
+
+
+  /// Viewmodel properties
   List<String> _userPosts = [];
 
   List<String> get userPosts => _userPosts;

@@ -3,8 +3,16 @@ import 'package:flutter_projects/modules/authentication/models/services/auth_ser
 
 class AuthViewModel extends ChangeNotifier {
 
-  AuthService authService = AuthService();
+  /// Viewmodel initialization and dependency injection
+  AuthService authService;
+  AuthViewModel({required this.authService});
 
+  void update({required AuthService authService}) {
+    this.authService = authService;
+  }
+
+
+  /// Viewmodel properties
   String? _currentUser;
 
   String? get currentUser => _currentUser;
