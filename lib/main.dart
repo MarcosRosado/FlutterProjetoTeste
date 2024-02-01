@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/common/models/providers/user_provider.dart';
 import 'package:flutter_projects/common/styles/theme.dart';
 import 'package:flutter_projects/common/controllers/router/router.dart';
 import 'package:flutter_projects/common/models/services/authentication/auth_service.dart';
@@ -21,10 +22,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         /**
-         * Provider creates an instance of the service and makes it available to the rest of the app.
+         * Provider creates an instance of the service and makes it available to the rest of the app;
+         * This can also serve as a singleton, meaning that the same instance will be used throughout the app;
+         * In the case of UserProvider it is a storage for the current user.
          */
         Provider(create: (c) => AuthService()),
         Provider(create: (c) => PostService()),
+        Provider(create: (c) => UserProvider()),
 
 
         /**
@@ -36,15 +40,15 @@ class MyApp extends StatelessWidget {
          *
          * another way of accessing the context is using the Provider.of<AuthService>(context, listen:false) method
          */
-        ChangeNotifierProxyProvider<AuthService, AuthViewModel>(
-            create: (c) => AuthViewModel(authService: c.read<AuthService>()),
-            update: (c, authService, authViewModel) => authViewModel ?? AuthViewModel(authService: authService)..update(authService: authService),
+        ChangeNotifierProxyProvider2<AuthService, UserProvider, AuthViewModel>(
+            create: (c) => AuthViewModel(authService: c.read<AuthService>(), userService: c.read<UserProvider>()),
+            update: (c, authService, userService, authViewModel) => authViewModel ?? AuthViewModel(authService: authService, userService: userService)..update(authService: authService, userService: userService),
         ),
 
         //Main Page - Posts
-        ChangeNotifierProxyProvider<PostService, UserPostsViewModel>(
-            create: (c) => UserPostsViewModel(postService: c.read<PostService>()),
-            update: (c, postService, userPostsViewModel) => userPostsViewModel ?? UserPostsViewModel(postService: postService)..update(postService: postService),
+        ChangeNotifierProxyProvider2<PostService, UserProvider, UserPostsViewModel>(
+            create: (c) => UserPostsViewModel(postService: c.read<PostService>(), userService: c.read<UserProvider>()),
+            update: (c, postService, userProvider, userPostsViewModel) => userPostsViewModel ?? UserPostsViewModel(postService: postService, userService: userProvider)..update(postService: postService, userService: userProvider),
         ),
 
       ],

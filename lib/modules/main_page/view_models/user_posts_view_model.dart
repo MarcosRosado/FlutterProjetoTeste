@@ -1,16 +1,19 @@
 
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_projects/common/models/providers/user_provider.dart';
 import 'package:flutter_projects/common/models/services/main_page/posts_service.dart';
 
 class UserPostsViewModel extends ChangeNotifier {
 
   /// Viewmodel initialization and dependency injection
   PostService postService;
-  UserPostsViewModel({required this.postService});
+  UserProvider userService;
+  UserPostsViewModel({required this.postService, required this.userService});
 
-  void update({required PostService postService}) {
+  void update({required PostService postService, required UserProvider userService}) {
    this.postService = postService;
+   this.userService = userService;
   }
 
 
@@ -24,9 +27,9 @@ class UserPostsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getPosts(String user) async {
+  Future<void> getPosts() async {
     // Make service call and inject results into the model
-    List<String> posts = await postService.getPosts(user);
+    List<String> posts = await postService.getPosts(userService.currentUser!);
     _userPosts = posts;
     notifyListeners();
     // Return our posts to the caller in case they care

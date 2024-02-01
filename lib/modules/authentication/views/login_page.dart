@@ -27,7 +27,7 @@ class LoginPageState extends State<LoginPage> {
       setState(() => _isLoading = false);
     } else {
       if(!mounted) return;
-      postsViewModel.getPosts(authViewModel.currentUser!);
+      postsViewModel.getPosts();
       context.go('/home');
     }
   }

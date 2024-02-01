@@ -28,7 +28,7 @@ class HomePageState extends State<HomePage> {
       return;
     }
     else{
-      await postsViewModel.getPosts(authViewModel.currentUser!);
+      await postsViewModel.getPosts();
     }
     // Re-enable refresh btn when command is done
     setState(() => _isLoading = false);
