@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/common/models/user/user_provider.dart';
+import 'package:flutter_projects/common/models/user/user_session.dart';
 import 'package:flutter_projects/common/styles/theme.dart';
 import 'package:flutter_projects/common/controllers/router/router.dart';
 import 'package:flutter_projects/common/models/services/authentication/auth_service.dart';
@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
         /**
          * Provider creates an instance of the service and makes it available to the rest of the app;
          * This can also serve as a singleton, meaning that the same instance will be used throughout the app;
-         * In the case of UserProvider it is a storage for the current user.
+         * In the case of UserSession it is a storage for the current user session.
+         *
+         * In a real application, if you ware to initialize this Class with a value inside a splash screen,
+         * you could load data from an API or sharedPreferences and then provide it to the rest of the app.
          */
         Provider(create: (c) => AuthService()),
         Provider(create: (c) => PostService()),
@@ -41,14 +44,14 @@ class MyApp extends StatelessWidget {
          * another way of accessing the context is using the Provider.of<AuthService>(context, listen:false) method
          */
         ChangeNotifierProxyProvider2<AuthService, UserSession, AuthViewModel>(
-            create: (c) => AuthViewModel(authService: c.read<AuthService>(), userService: c.read<UserSession>()),
-            update: (c, authService, userSession, authViewModel) => authViewModel ?? AuthViewModel(authService: authService, userService: userSession)..update(authService: authService, userService: userSession),
+            create: (c) => AuthViewModel(authService: c.read<AuthService>(), userSession: c.read<UserSession>()),
+            update: (c, authService, userSession, authViewModel) => authViewModel ?? AuthViewModel(authService: authService, userSession: userSession)..update(authService: authService, userService: userSession),
         ),
 
         //Main Page - Posts
         ChangeNotifierProxyProvider2<PostService, UserSession, UserPostsViewModel>(
-            create: (c) => UserPostsViewModel(postService: c.read<PostService>(), userService: c.read<UserSession>()),
-            update: (c, postService, userSession, userPostsViewModel) => userPostsViewModel ?? UserPostsViewModel(postService: postService, userService: userSession)..update(postService: postService, userService: userSession),
+            create: (c) => UserPostsViewModel(postService: c.read<PostService>(), userSession: c.read<UserSession>()),
+            update: (c, postService, userSession, userPostsViewModel) => userPostsViewModel ?? UserPostsViewModel(postService: postService, userSession: userSession)..update(postService: postService, userSession: userSession),
         ),
 
       ],

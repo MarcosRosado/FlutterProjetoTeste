@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../authentication/view_models/auth_view_model.dart';
 import '../view_models/user_posts_view_model.dart';
 
 
@@ -16,14 +15,20 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   bool _isLoading = false;
 
+  @override
+  void initState() {
+    final postsViewModel = context.read<UserPostsViewModel>();
+    super.initState();
+    postsViewModel.getPosts();
+  }
+
 
   void _handleRefreshPressed() async {
-    final authViewModel = context.read<AuthViewModel>();
     final postsViewModel = context.read<UserPostsViewModel>();
     // Disable the RefreshBtn while the Command is running
     setState(() => _isLoading = true);
     // Run command
-    if(authViewModel.currentUser == null) {
+    if(postsViewModel.currentUser == null) {
       setState(() => _isLoading = false);
       return;
     }
@@ -35,10 +40,10 @@ class HomePageState extends State<HomePage> {
   }
 
   void _handleResetUserPressed() {
-    final authViewModel = context.read<AuthViewModel>();
+    final postsViewModel = context.read<UserPostsViewModel>();
 
     setState(() => _isLoading = true);
-    authViewModel.currentUser = null;
+    postsViewModel.signOut();
     context.go('/authentication');
     setState(() => _isLoading = false);
   }

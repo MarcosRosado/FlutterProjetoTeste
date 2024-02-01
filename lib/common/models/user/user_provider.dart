@@ -1,3 +1,0 @@
-class UserSession {
-  String? currentUser;
-}

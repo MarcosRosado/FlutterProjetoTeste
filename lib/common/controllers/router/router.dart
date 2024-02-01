@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/common/controllers/router/router_animation.dart';
 import 'package:flutter_projects/modules/authentication/views/login_page.dart';
+import 'package:flutter_projects/modules/authentication/views/splash_screen.dart';
 import 'package:flutter_projects/modules/main_page/views/home_page.dart';
 import 'package:go_router/go_router.dart';
 
 /// This handles '/' and '/details'.
 final router = GoRouter(
-  initialLocation: '/authentication',
+  initialLocation: '/splash',
   routes: [
     /**
      * GoRoute can have nested routes.
@@ -15,6 +16,14 @@ final router = GoRouter(
      * outside using context.go('/routeName/nestedRouteName')
      * or go back within the nested route using context.go('../anotherNestedRouteName'), or using the full path.
      */
+    GoRoute(
+      path: '/splash',
+      pageBuilder: (context, state) => buildPageWithoutTransition<void>(
+        context: context,
+        state: state,
+        child: const SplashScreen(),
+      ),
+    ),
     GoRoute(
       path: '/authentication',
       pageBuilder: (context, state) => buildPageWithoutTransition<void>(

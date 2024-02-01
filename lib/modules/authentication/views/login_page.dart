@@ -19,7 +19,6 @@ class LoginPageState extends State<LoginPage> {
 
   void _handleLoginPressed() async {
     final authViewModel = context.read<AuthViewModel>();
-    final postsViewModel = context.read<UserPostsViewModel>();
 
     setState(() => _isLoading = true);
     bool success = await authViewModel.login("anotheruser", "somepass");
@@ -27,7 +26,6 @@ class LoginPageState extends State<LoginPage> {
       setState(() => _isLoading = false);
     } else {
       if(!mounted) return;
-      postsViewModel.getPosts();
       context.go('/home');
     }
   }
