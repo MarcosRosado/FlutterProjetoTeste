@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_projects/common/models/services/authentication/auth_service.dart';
 
-import '../../../common/models/providers/user_provider.dart';
+import '../../../common/models/user/user_provider.dart';
 
 class AuthViewModel extends ChangeNotifier {
 
   /// Viewmodel initialization and dependency injection
   AuthService authService;
-  UserProvider userService;
+  UserSession userService;
   AuthViewModel({required this.authService, required this.userService});
 
-  void update({required AuthService authService, required UserProvider userService}) {
+  void update({required AuthService authService, required UserSession userService}) {
     this.authService = authService;
     this.userService = userService;
   }
@@ -29,6 +29,7 @@ class AuthViewModel extends ChangeNotifier {
     print("Login status: $loginSuccess");
     // Update appModel with current user. Any views bound to this will rebuild
     userService.currentUser = (loginSuccess? user : null)!;
+
     notifyListeners();
 
     // Return the result to whoever called us, in case they care

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/common/models/providers/user_provider.dart';
+import 'package:flutter_projects/common/models/user/user_provider.dart';
 import 'package:flutter_projects/common/styles/theme.dart';
 import 'package:flutter_projects/common/controllers/router/router.dart';
 import 'package:flutter_projects/common/models/services/authentication/auth_service.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
          */
         Provider(create: (c) => AuthService()),
         Provider(create: (c) => PostService()),
-        Provider(create: (c) => UserProvider()),
+        Provider(create: (c) => UserSession()),
 
 
         /**
@@ -40,15 +40,15 @@ class MyApp extends StatelessWidget {
          *
          * another way of accessing the context is using the Provider.of<AuthService>(context, listen:false) method
          */
-        ChangeNotifierProxyProvider2<AuthService, UserProvider, AuthViewModel>(
-            create: (c) => AuthViewModel(authService: c.read<AuthService>(), userService: c.read<UserProvider>()),
-            update: (c, authService, userService, authViewModel) => authViewModel ?? AuthViewModel(authService: authService, userService: userService)..update(authService: authService, userService: userService),
+        ChangeNotifierProxyProvider2<AuthService, UserSession, AuthViewModel>(
+            create: (c) => AuthViewModel(authService: c.read<AuthService>(), userService: c.read<UserSession>()),
+            update: (c, authService, userSession, authViewModel) => authViewModel ?? AuthViewModel(authService: authService, userService: userSession)..update(authService: authService, userService: userSession),
         ),
 
         //Main Page - Posts
-        ChangeNotifierProxyProvider2<PostService, UserProvider, UserPostsViewModel>(
-            create: (c) => UserPostsViewModel(postService: c.read<PostService>(), userService: c.read<UserProvider>()),
-            update: (c, postService, userProvider, userPostsViewModel) => userPostsViewModel ?? UserPostsViewModel(postService: postService, userService: userProvider)..update(postService: postService, userService: userProvider),
+        ChangeNotifierProxyProvider2<PostService, UserSession, UserPostsViewModel>(
+            create: (c) => UserPostsViewModel(postService: c.read<PostService>(), userService: c.read<UserSession>()),
+            update: (c, postService, userSession, userPostsViewModel) => userPostsViewModel ?? UserPostsViewModel(postService: postService, userService: userSession)..update(postService: postService, userService: userSession),
         ),
 
       ],

@@ -1,17 +1,17 @@
 
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_projects/common/models/providers/user_provider.dart';
+import 'package:flutter_projects/common/models/user/user_provider.dart';
 import 'package:flutter_projects/common/models/services/main_page/posts_service.dart';
 
 class UserPostsViewModel extends ChangeNotifier {
 
   /// Viewmodel initialization and dependency injection
   PostService postService;
-  UserProvider userService;
+  UserSession userService;
   UserPostsViewModel({required this.postService, required this.userService});
 
-  void update({required PostService postService, required UserProvider userService}) {
+  void update({required PostService postService, required UserSession userService}) {
    this.postService = postService;
    this.userService = userService;
   }
