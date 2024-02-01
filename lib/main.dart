@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/common/styles/theme.dart';
 import 'package:flutter_projects/common/controllers/router/router.dart';
-import 'package:flutter_projects/modules/authentication/models/services/auth_service.dart';
-import 'package:flutter_projects/modules/main_page/models/services/posts_service.dart';
+import 'package:flutter_projects/common/models/services/authentication/auth_service.dart';
+import 'package:flutter_projects/common/models/services/main_page/posts_service.dart';
 import 'package:provider/provider.dart';
 
 import 'modules/authentication/view_models/auth_view_model.dart';

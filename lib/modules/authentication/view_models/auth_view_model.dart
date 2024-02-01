@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_projects/modules/authentication/models/services/auth_service.dart';
+import 'package:flutter_projects/common/models/services/authentication/auth_service.dart';
 
 class AuthViewModel extends ChangeNotifier {
 

@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_projects/modules/main_page/models/services/posts_service.dart';
+import 'package:flutter_projects/common/models/services/main_page/posts_service.dart';
 
 class UserPostsViewModel extends ChangeNotifier {
 
