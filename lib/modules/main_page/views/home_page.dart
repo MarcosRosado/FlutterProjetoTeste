@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_projects/common/widgets/input/dropdownButton2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../view_models/user_posts_view_model.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,17 +22,15 @@ class HomePageState extends State<HomePage> {
     postsViewModel.getPosts();
   }
 
-
   void _handleRefreshPressed() async {
     final postsViewModel = context.read<UserPostsViewModel>();
     // Disable the RefreshBtn while the Command is running
     setState(() => _isLoading = true);
     // Run command
-    if(postsViewModel.currentUser == null) {
+    if (postsViewModel.currentUser == null) {
       setState(() => _isLoading = false);
       return;
-    }
-    else{
+    } else {
       await postsViewModel.getPosts();
     }
     // Re-enable refresh btn when command is done
@@ -48,6 +46,17 @@ class HomePageState extends State<HomePage> {
     setState(() => _isLoading = false);
   }
 
+  void onChanged(String? value) {
+    setState(() {
+      dropdownValue = value;
+    });
+  }
+
+  String? dropdownValue;
+
+  //generate list with 20 random items
+  List<String> options = List.generate(20, (index) => "Item $index");
+
   @override
   Widget build(BuildContext context) {
     // viewmodel initialization can be replaced by  Provider.of<UserPostsViewModel>(context);
@@ -61,16 +70,31 @@ class HomePageState extends State<HomePage> {
 
     // Disable btn by removing listener when we're loading.
     void Function()? btnHandler = _isLoading ? null : _handleRefreshPressed;
-    void Function()? btnHandlerResetUser = _isLoading ? null : _handleResetUserPressed;
+    void Function()? btnHandlerResetUser =
+        _isLoading ? null : _handleResetUserPressed;
     // Render list of post widgets
     var listPosts = userPosts.map((post) => Text(post)).toList();
     return Scaffold(
-      body: Column(
-        children: [
-          Flexible(child: ListView(children: listPosts)),
-          FilledButton(onPressed: btnHandler, child: const Text("REFRESH")),
-          FilledButton(onPressed: btnHandlerResetUser, child: const Text("RESET_USER")),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            CustomDropdown(
+                title: "Título",
+                dropdownWidth: double.infinity,
+                placeholder: "Selecione um item",
+                onChanged: onChanged,
+                dropdownValue: dropdownValue,
+                dropdownHeight: 200,
+                options: options),
+            Flexible(child: ListView(children: listPosts)),
+            FilledButton(onPressed: btnHandler, child: const Text("REFRESH")),
+            FilledButton(
+                onPressed: btnHandlerResetUser,
+                child: const Text("RESET_USER")),
+
+          ],
+        ),
       ),
     );
   }
