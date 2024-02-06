@@ -9,6 +9,18 @@ Inside the common folder is also present the controllers folder, witch contains 
 The controllers are used to handle the logic of the project such as navigation and routing.
 
 
+## Android publish
+Create a file name key.propeties on the android folder with the following content:
+
+storePassword=STORE_PASSWORD
+
+keyPassword=KEY_PASSWORD
+
+keyAlias=KEY_ALIAS
+
+storeFile=KEY_PATH
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

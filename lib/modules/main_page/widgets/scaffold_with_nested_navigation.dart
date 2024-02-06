@@ -3,6 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+
+/// Create a custom widget that has a bottom navigation bar and a nested navigation.
+/// this is used by the branched navigation to create a bottom navigation bar with a nested navigation.
+///
+/// the content of each branch will be rendered inside the scaffold body.
 class ScaffoldWithNestedNavigation extends StatelessWidget {
   const ScaffoldWithNestedNavigation({
     Key? key,
