@@ -37,6 +37,10 @@ class HomePageState extends State<HomePage> {
     setState(() => _isLoading = false);
   }
 
+  void _handleBottomNavNavigation() async {
+    context.go('/page2');
+  }
+
   void _handleResetUserPressed() {
     final postsViewModel = context.read<UserPostsViewModel>();
 
@@ -70,6 +74,7 @@ class HomePageState extends State<HomePage> {
 
     // Disable btn by removing listener when we're loading.
     void Function()? btnHandler = _isLoading ? null : _handleRefreshPressed;
+    void Function()? btnBottomNav = _isLoading ? null : _handleBottomNavNavigation;
     void Function()? btnHandlerResetUser =
         _isLoading ? null : _handleResetUserPressed;
     // Render list of post widgets
@@ -89,6 +94,7 @@ class HomePageState extends State<HomePage> {
                 options: options),
             Flexible(child: ListView(children: listPosts)),
             FilledButton(onPressed: btnHandler, child: const Text("REFRESH")),
+            FilledButton(onPressed: btnBottomNav, child: const Text("Go to bottom navigation bar")),
             FilledButton(
                 onPressed: btnHandlerResetUser,
                 child: const Text("RESET_USER")),
