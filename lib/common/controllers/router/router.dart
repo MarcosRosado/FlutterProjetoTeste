@@ -35,6 +35,7 @@ final router = GoRouter(
           /**
            * StatefulShellBranch is a branch of a StatefulShellRoute, it has a navigatorKey and a list of routes.
            * Routes can be nested, and can be accessed using the context.go() methods or the context.goBranch() to switch between branches.
+           * Routes can further be nested inside each other, and can be accessed using the context.go() method.
            */
           StatefulShellBranch(
             navigatorKey: _shellNavigatorNav1Key,

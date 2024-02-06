@@ -38,7 +38,7 @@ class HomePageState extends State<HomePage> {
   }
 
   void _handleBottomNavNavigation() async {
-    context.go('/page2');
+    context.go('/page1/details/internalDetails');
   }
 
   void _handleResetUserPressed() {
