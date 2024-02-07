@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_projects/common/controllers/router/router_animation.dart';
 import 'package:flutter_projects/modules/authentication/views/login_page.dart';
 import 'package:flutter_projects/modules/authentication/views/splash_screen.dart';
-import 'package:flutter_projects/modules/main_page/views/home_page.dart';
+import 'package:flutter_projects/modules/main_page/views/home_page/home_page.dart';
 import 'package:flutter_projects/modules/main_page/views/bottom_navigation_screens/root_screen.dart';
 import 'package:go_router/go_router.dart';
 

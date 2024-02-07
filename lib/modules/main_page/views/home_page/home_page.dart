@@ -3,7 +3,7 @@ import 'package:flutter_projects/common/widgets/input/dropdownButton2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../view_models/user_posts_view_model.dart';
+import '../../view_models/user_posts_view_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
