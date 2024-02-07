@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../main_page/view_models/user_posts_view_model.dart';
-import '../view_models/auth_view_model.dart';
+import '../../../main_page/view_models/user_posts_view_model.dart';
+import '../../view_models/auth_view_model.dart';
 
 
 class LoginPage extends StatefulWidget {
